@@ -48,13 +48,17 @@ import netscape.javascript.JSObject;
  */
 public class Main implements ActionListener{
 
-	public JSFunctions jsFunctions; //File for JSObject window to comunicate functions to
+	//File for JSObject window to communicate functions to
+	public JSFunctions jsFunctions; 
+	
+	//Forge directory
 	public File forge_folder = new File("forge");
 
-	private static JFrame frame = new JFrame("Forge Scratch"); //Main JFame
+	//Main JFame
+	private static JFrame frame = new JFrame("Forge Scratch"); 
 	
-	private JMenuBar menuBar = new JMenuBar(); //Menu bar for JFrame
-	
+	//Menu bar for JFrame
+	private JMenuBar menuBar = new JMenuBar(); 
 	
 	//Every thing to put under the "File" button in the menu bar
 	private JMenuItem file_newItem = new JMenuItem("New");
@@ -72,21 +76,27 @@ public class Main implements ActionListener{
 	//Every thing to put under the "Help" button in the menu bar
 	private JMenuItem help_about = new JMenuItem("About");
 	
+	//File name for wither opening or closing. Set by "Open" or "Save As"
+	private String filename = null;  
 	
-	private String filename = null;  // set by "Open" or "Save As"
+	//Simple final arguments for the file extension so I do not miss type it.
 	private final String FILE_EXTENTION = "blockmod";
 	private final String FILE_EXTENTION_DESCRIPTION = "Mod Save File";
 	
-	public JSObject window; //The magical thing that comunicates with the javascript portion
+	//The magical thing that communicates with the javascript portion
+	public JSObject window; 
 	
-	public String MOD_NAME = "If you see this, something bad happened"; //Default mod name, gets overwritten on new project creation
+	//Default mod name, gets overwritten on new project creation
+	public String MOD_NAME = "If you see this, something bad happened"; 
 	
 	
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Main()::initAndShowGUI); //Run things after evetything, also non static :)
+		//Run things after everything, also non static :)
+		SwingUtilities.invokeLater(new Main()::initAndShowGUI); 
 	}
 
+	//Start creation of everything
 	void initAndShowGUI() {
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,6 +115,7 @@ public class Main implements ActionListener{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
+		//Make the menu button "File" and add elements to it
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.add(file_newItem);
 		fileMenu.add(file_openItem);
@@ -118,16 +129,19 @@ public class Main implements ActionListener{
 		file_exitItem.addActionListener(this);
 		menuBar.add(fileMenu);
 		
+		//Make the menu button "Mod Options" and add elements to it
 		JMenu modOptionsMenu = new JMenu("Mod Options");
 		modOptionsMenu.add(modOptions_textures);
 		modOptions_textures.addActionListener(this);
 		menuBar.add(modOptionsMenu);
 		
+		//Make the menu button "Program Options" and add elements to it
 		JMenu programOptionsMenu = new JMenu("Program Options");
 		programOptionsMenu.add(programOptions_programArgs);
 		programOptions_programArgs.addActionListener(this);
 		menuBar.add(programOptionsMenu);
 		
+		//Make the menu button "Help" and add elements to it
 		JMenu helpMenu = new JMenu("Help");
 		helpMenu.add(help_about);
 		help_about.addActionListener(this);
@@ -142,6 +156,7 @@ public class Main implements ActionListener{
 		startupDialog();
 	}
 
+	//Setup the web scene and JSObject
 	Scene createScene() {
 		StackPane root = new StackPane();
 		Scene scene = new Scene(root);
@@ -239,7 +254,6 @@ public class Main implements ActionListener{
 			fc.setDialogType(JFileChooser.SAVE_DIALOG);
 			fc.addChoosableFileFilter(new FileNameExtensionFilter(FILE_EXTENTION_DESCRIPTION, FILE_EXTENTION));
 			fc.setAcceptAllFileFilterUsed(false);
-			//fc.setMultiSelectionEnabled(false);
 			if (fc.showSaveDialog(null) != JFileChooser.CANCEL_OPTION) {
 				name = fc.getSelectedFile().getAbsolutePath();
 			}
@@ -335,11 +349,9 @@ public class Main implements ActionListener{
 		e.printStackTrace(new PrintWriter(writer));
 		textArea.setText(writer.toString());
 		
-		// stuff it in a scrollpane with a controlled size.
 		JScrollPane scrollPane = new JScrollPane(textArea);		
 		scrollPane.setPreferredSize(new Dimension(350, 150));
-		
-		// pass the scrollpane to the joptionpane.				
+					
 		JOptionPane.showMessageDialog(frame, scrollPane, "An Error Has Occurred", JOptionPane.ERROR_MESSAGE);
 	}
 
