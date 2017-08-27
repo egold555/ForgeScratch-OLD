@@ -41,35 +41,45 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 
-
+/**
+ * Main program class
+ * @author Eric
+ *
+ */
 public class Main implements ActionListener{
 
-	public JSFunctions jsFunctions;
+	public JSFunctions jsFunctions; //File for JSObject window to comunicate functions to
 	public File forge_folder = new File("forge");
 
-	private static JFrame frame = new JFrame("Forge Scratch");
+	private static JFrame frame = new JFrame("Forge Scratch"); //Main JFame
 	
-	private JMenuBar menuBar = new JMenuBar();
+	private JMenuBar menuBar = new JMenuBar(); //Menu bar for JFrame
 	
+	
+	//Every thing to put under the "File" button in the menu bar
 	private JMenuItem file_newItem = new JMenuItem("New");
 	private JMenuItem file_openItem = new JMenuItem("Open");
 	private JMenuItem file_saveItem = new JMenuItem("Save");
 	private JMenuItem file_saveAsItem = new JMenuItem("Save As");
 	private JMenuItem file_exitItem = new JMenuItem("Exit");
 	
+	//Every thing to put under the "Mod Options" button in the menu bar
 	private JMenuItem modOptions_textures = new JMenuItem("Textures");
 	
+	//Every thing to put under the "Program Options" button in the menu bar
 	private JMenuItem programOptions_programArgs = new JMenuItem("Java Arguments");
 	
+	//Every thing to put under the "Help" button in the menu bar
 	private JMenuItem help_about = new JMenuItem("About");
+	
 	
 	private String filename = null;  // set by "Open" or "Save As"
 	private final String FILE_EXTENTION = "blockmod";
 	private final String FILE_EXTENTION_DESCRIPTION = "Mod Save File";
 	
-	public JSObject window;
+	public JSObject window; //The magical thing that comunicates with the javascript portion
 	
-	public String MOD_NAME = "If you see this, something bad happened";
+	public String MOD_NAME = "If you see this, something bad happened"; //Default mod name, gets overwritten on new project creation
 	
 	
 
@@ -273,6 +283,7 @@ public class Main implements ActionListener{
         }
 	}*/
 	
+	//Main dialog on startup
 	public void startupDialog() {
 		JRadioButton newProject = new JRadioButton("New");
 		JRadioButton openProject = new JRadioButton("Open");
@@ -298,6 +309,7 @@ public class Main implements ActionListener{
 		}
 	}
 	
+	//Prompt screen to make a mod
 	private void createMod(boolean isStarting) {
 		JTextField field1 = new JTextField("");
         JPanel panel = new JPanel(new GridLayout(0, 1));
@@ -314,6 +326,7 @@ public class Main implements ActionListener{
         }
 	}
 	
+	//Simple error dialog
 	public static void showQuickErrorDialog(IOException e) {
 		final JTextArea textArea = new JTextArea();
 		textArea.setFont(new Font("Sans-Serif", Font.PLAIN, 10));

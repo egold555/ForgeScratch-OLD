@@ -11,6 +11,11 @@ import org.golde.java.testjavafxhtml.helpers.PLog;
 
 import netscape.javascript.JSObject;
 
+/**
+ * The class that JSObject comunicates too and calls functions to
+ * @author Eric
+ *
+ */
 public class JSFunctions {
 	
 	private Main main;
