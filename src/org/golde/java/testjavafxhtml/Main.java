@@ -50,46 +50,48 @@ public class Main implements ActionListener{
 
 	//File for JSObject window to communicate functions to
 	public JSFunctions jsFunctions; 
-	
+
 	//Forge directory
 	public File forge_folder = new File("forge");
 
 	//Main JFame
 	private static JFrame frame = new JFrame("Forge Scratch"); 
-	
+
 	//Menu bar for JFrame
 	private JMenuBar menuBar = new JMenuBar(); 
-	
+
 	//Every thing to put under the "File" button in the menu bar
 	private JMenuItem file_newItem = new JMenuItem("New");
 	private JMenuItem file_openItem = new JMenuItem("Open");
 	private JMenuItem file_saveItem = new JMenuItem("Save");
 	private JMenuItem file_saveAsItem = new JMenuItem("Save As");
 	private JMenuItem file_exitItem = new JMenuItem("Exit");
-	
+
 	//Every thing to put under the "Mod Options" button in the menu bar
 	private JMenuItem modOptions_textures = new JMenuItem("Textures");
-	
+	private JMenuItem modOptions_enabledMods = new JMenuItem("Enabled Mods");
+	private JMenuItem modOptions_exportMod = new JMenuItem("Export Mod");
+
 	//Every thing to put under the "Program Options" button in the menu bar
 	private JMenuItem programOptions_programArgs = new JMenuItem("Java Arguments");
-	
+
 	//Every thing to put under the "Help" button in the menu bar
 	private JMenuItem help_about = new JMenuItem("About");
-	
+
 	//File name for wither opening or closing. Set by "Open" or "Save As"
 	private String filename = null;  
-	
+
 	//Simple final arguments for the file extension so I do not miss type it.
 	private final String FILE_EXTENTION = "blockmod";
 	private final String FILE_EXTENTION_DESCRIPTION = "Mod Save File";
-	
+
 	//The magical thing that communicates with the javascript portion
 	public JSObject window; 
-	
+
 	//Default mod name, gets overwritten on new project creation
 	public String MOD_NAME = "If you see this, something bad happened"; 
-	
-	
+
+
 
 	public static void main(String[] args) {
 		//Run things after everything, also non static :)
@@ -98,7 +100,7 @@ public class Main implements ActionListener{
 
 	//Start creation of everything
 	void initAndShowGUI() {
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final JFXPanel fxPanel = new JFXPanel(){
 
@@ -114,7 +116,7 @@ public class Main implements ActionListener{
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		//Make the menu button "File" and add elements to it
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.add(file_newItem);
@@ -128,23 +130,31 @@ public class Main implements ActionListener{
 		file_saveAsItem.addActionListener(this);
 		file_exitItem.addActionListener(this);
 		menuBar.add(fileMenu);
-		
+
 		//Make the menu button "Mod Options" and add elements to it
 		JMenu modOptionsMenu = new JMenu("Mod Options");
 		modOptionsMenu.add(modOptions_textures);
+		modOptionsMenu.add(modOptions_enabledMods);
+		modOptionsMenu.add(modOptions_exportMod);
 		modOptions_textures.addActionListener(this);
+		modOptions_textures.setEnabled(false);
+		modOptions_enabledMods.addActionListener(this);
+		modOptions_exportMod.addActionListener(this);
+		modOptions_exportMod.setEnabled(false);
 		menuBar.add(modOptionsMenu);
-		
+
 		//Make the menu button "Program Options" and add elements to it
 		JMenu programOptionsMenu = new JMenu("Program Options");
 		programOptionsMenu.add(programOptions_programArgs);
 		programOptions_programArgs.addActionListener(this);
+		programOptions_programArgs.setEnabled(false);
 		menuBar.add(programOptionsMenu);
-		
+
 		//Make the menu button "Help" and add elements to it
 		JMenu helpMenu = new JMenu("Help");
 		helpMenu.add(help_about);
 		help_about.addActionListener(this);
+		help_about.setEnabled(false);
 		menuBar.add(helpMenu);
 
 		frame.setJMenuBar(menuBar);
@@ -152,7 +162,7 @@ public class Main implements ActionListener{
 		Platform.runLater(() -> {
 			fxPanel.setScene(createScene());
 		});
-		
+
 		startupDialog();
 	}
 
@@ -188,31 +198,36 @@ public class Main implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Platform.runLater(new Runnable() {
-	        @Override
-	        public void run() {
-	        	Object source = e.getSource();
-	        	//File
-	        	if (source == file_newItem) {
-	    			//new mod
-	        		createMod(false);
-	    		}
-	    		else if (source == file_openItem) {
-	    			loadFile(false);
-	    		}
-	    		else if (source == file_saveItem) {
-	    			saveFile(filename);
-	    		}
-	    		else if (source == file_saveAsItem) {
-	    			saveFile(null);
-	    		}
-	    		else if (source == file_exitItem) {
-	    			System.exit(0);
-	    		}
-	        	//Options
-	    		
-	        }
-	   });
-		
+			@Override
+			public void run() {
+				Object source = e.getSource();
+				//File
+				if (source == file_newItem) {
+					//new mod
+					createMod(false);
+				}
+				else if (source == file_openItem) {
+					loadFile(false);
+				}
+				else if (source == file_saveItem) {
+					saveFile(filename);
+				}
+				else if (source == file_saveAsItem) {
+					saveFile(null);
+				}
+				else if (source == file_exitItem) {
+					System.exit(0);
+				}
+				
+				//Mod Options
+				else if(source == modOptions_enabledMods) {
+					jsFunctions.showEnabledMods(frame);
+				}
+				
+
+			}
+		});
+
 	}
 
 	// Prompt user to enter filename and load file.  Allow user to cancel.
@@ -233,15 +248,15 @@ public class Main implements ActionListener{
 				startupDialog();
 			}
 			return;  // user cancelled
-			
+
 		}
 		try {
 			String XML = JavaHelper.readFile(new File(name));
-			
+
 			jsFunctions.load(XML);
 		}
 		catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "File not found: " + name, "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "File not found: " + name, "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -260,32 +275,32 @@ public class Main implements ActionListener{
 		}
 		if (name != null) {  // else user cancelled
 			try {
-				
+
 				if(!name.endsWith("." + FILE_EXTENTION)) { //make sure users dont mess file extenton up
 					name += "." + FILE_EXTENTION;
 				}
-				
+
 				File file = new File(name);
-				
+
 				if (file.exists()) {
-				    int response = JOptionPane.showConfirmDialog(null, "Do you want to replace the existing file?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				    if (response != JOptionPane.YES_OPTION) {
-				        return;
-				    } 
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to replace the existing file?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (response != JOptionPane.YES_OPTION) {
+						return;
+					} 
 				}
-		
-				
+
+
 				JavaHelper.writeFile(file, jsFunctions.saveXML());
 				filename = name;
-				
-				JOptionPane.showMessageDialog(null, "Saved to " + filename, "Save File", JOptionPane.PLAIN_MESSAGE);
+
+				JOptionPane.showMessageDialog(frame, "Saved to " + filename, "Save File", JOptionPane.PLAIN_MESSAGE);
 			}
 			catch (FileNotFoundException e) {
-				JOptionPane.showMessageDialog(null, "Cannot write to file: " + name, "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "Cannot write to file: " + name, "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
-	
+
 	/*private void showProgramArgsMenu() {
         JTextField field1 = new JTextField("-Xincgc -Xmx4G -Xms4G");
         JPanel panel = new JPanel(new GridLayout(0, 1));
@@ -293,53 +308,57 @@ public class Main implements ActionListener{
         panel.add(field1);
         int result = JOptionPane.showConfirmDialog(null, panel, "Program Argument Options", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            
+
         }
 	}*/
-	
+
 	//Main dialog on startup
 	public void startupDialog() {
 		JRadioButton newProject = new JRadioButton("New");
 		JRadioButton openProject = new JRadioButton("Open");
 		
+		newProject.setSelected(true);
+
 		ButtonGroup bttnGroup = new ButtonGroup();
 		bttnGroup.add(newProject);
 		bttnGroup.add(openProject);
-		
+
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 		panel.add(newProject);
 		panel.add(openProject);
 
 		int result; 
 		do  {
-			result = JOptionPane.showConfirmDialog(null, panel, "What would you like to do?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			result = JOptionPane.showConfirmDialog(frame, panel, "What would you like to do?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		}
 		while(result == JOptionPane.CLOSED_OPTION); 
-		
+
 		if(newProject.isSelected()) {
 			createMod(true);
 		}else {
 			loadFile(true);
 		}
 	}
-	
+
 	//Prompt screen to make a mod
 	private void createMod(boolean isStarting) {
 		JTextField field1 = new JTextField("");
-        JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("Mod Name: "));
-        panel.add(field1);
-        int result = JOptionPane.showConfirmDialog(null, panel, "New Mod", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (result == JOptionPane.OK_OPTION) {
-        	MOD_NAME = field1.getText();
-        }else {
-        	if(isStarting) {
-        		startupDialog();
-        	}
-        	return;
-        }
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		panel.add(new JLabel("Mod Name: "));
+		panel.add(field1);
+		int result = JOptionPane.showConfirmDialog(frame, panel, "New Mod", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		if (result == JOptionPane.OK_OPTION && !JavaHelper.isStringEmpty(field1.getText())) {
+			MOD_NAME = field1.getText();
+		}else {
+			if(isStarting) {
+				startupDialog();
+			}
+			return;
+		}
 	}
+
 	
+
 	//Simple error dialog
 	public static void showQuickErrorDialog(IOException e) {
 		final JTextArea textArea = new JTextArea();
@@ -348,10 +367,10 @@ public class Main implements ActionListener{
 		StringWriter writer = new StringWriter();
 		e.printStackTrace(new PrintWriter(writer));
 		textArea.setText(writer.toString());
-		
+
 		JScrollPane scrollPane = new JScrollPane(textArea);		
 		scrollPane.setPreferredSize(new Dimension(350, 150));
-					
+
 		JOptionPane.showMessageDialog(frame, scrollPane, "An Error Has Occurred", JOptionPane.ERROR_MESSAGE);
 	}
 

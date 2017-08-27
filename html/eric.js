@@ -4,37 +4,7 @@ goog.require('Blockly.Blocks');
 
 //Blockly.Blocks.colour.HUE = 20;
 
-/*Blockly.Blocks['test'] = {
-  
-  init: function() {
-    this.jsonInit({
-		  "type": "test",
-		  "message0": "Stuff to say:  %1",
-		  "args0": [
-		    {
-		      "type": "field_input",
-		      "name": "STUFF",
-		      "text": "Hi"
-		    }
-		  ],
-		  "previousStatement": null,
-		  "nextStatement": null,
-		  "colour": 330,
-		  "tooltip": "",
-		  "helpUrl": ""
-    });
-  }
-};
-
-Blockly.Java['test'] = function(block) {
-  var text_stuff = block.getFieldValue('STUFF');
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'System.out.println("' + text_stuff + '");\n';
-  return code;
-}*/
-
 /*
-
 Blockly.Blocks['name'] = {
   
   init: function() {
@@ -52,7 +22,7 @@ Blockly.Blocks['mcblock'] = {
   init: function() {
     this.jsonInit({
       "type": "mcblock",
-  "message0": "Minecraft Block %1 Name: %2 %3 Material: %4 %5 Options %6 %7",
+  "message0": "Minecraft Block %1 Name: %2 %3 Properties: %4 %5 Options %6 %7",
   "args0": [
     {
       "type": "input_dummy"
@@ -70,12 +40,20 @@ Blockly.Blocks['mcblock'] = {
       "name": "MATERIAL",
       "options": [
         [
-          "wood",
+          "Dirt",
+          "Material.ground"
+        ],
+        [
+          "Stone",
+          "Material.rock"
+        ],
+        [
+          "Wood",
           "Material.wood"
         ],
         [
-          "rock",
-          "Material.rock"
+          "Glass",
+          "Material.glass"
         ]
       ]
     },
@@ -88,13 +66,11 @@ Blockly.Blocks['mcblock'] = {
     {
       "type": "input_statement",
       "name": "Options",
-      "check": "mcblockoptions_quantity"
+      "check": "mcblockoptions"
     }
   ],
   "inputsInline": false,
-  "previousStatement": "none",
-  "nextStatement": "mcblock",
-  "colour": 330,
+  "colour": 315,
   "tooltip": "",
   "helpUrl": ""
     });
@@ -146,7 +122,7 @@ Blockly.Blocks['mcblockoptions_quantity'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcblockoptions_quantity",
+      "type": "mcblockoptions",
   "message0": "Amount: %1",
   "args0": [
     {
@@ -157,7 +133,7 @@ Blockly.Blocks['mcblockoptions_quantity'] = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 230,
+  "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
@@ -174,3 +150,240 @@ Blockly.Java['mcblockoptions_quantity'] = function(block) {
   '    }\n';
   return code;
 };
+
+
+
+Blockly.Blocks['mcblockoptions_lightopacity'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "Light Opacity %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "LIGHT_OPACITY",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+};
+
+
+
+Blockly.Blocks['mcblockoptions_lightvalue'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "Light Value %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "LIGHT_VALUE",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+
+Blockly.Blocks['mcblockoptions_click_right'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "On Right Click %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "code"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+Blockly.Blocks['mcblockoptions_click_left'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "On Left Click %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "CODE"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+
+Blockly.Blocks['mcblockoptions_blockplaced'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "On Block Placed %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "CODE"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+
+
+Blockly.Blocks['mcblockoptions_block_broken_player'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "On Block Mined %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "CODE"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+
+Blockly.Blocks['mcblockoptions_block_broken_explosion'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "On Block Destroyed By Explosion %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "NAME"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+
+Blockly.Blocks['mcblockoptions_walkthrough'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "On Block Walkthough %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "CODE"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+
+Blockly.Blocks['mcblockoptions_transparent'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "Render Block Like Glass",
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 
+
+
+Blockly.Blocks['mcblockoptions_experience'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcblockoptions",
+  "message0": "Amount Of XP To Drop %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "AMOUNT",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+}; 

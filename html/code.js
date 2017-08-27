@@ -449,11 +449,12 @@ Code.initLanguage = function() {
  * Just a quick and dirty eval.  Catch infinite loops.
  */
 Code.runJS = function() {
+  log("Run called");
   var deleteme = "delete_me";
   Blockly.Java.setAppName(deleteme);
   Blockly.Java.setPackage(deleteme);
   Blockly.Java.fileHeader = "";
-  java_app.run("project", Blockly.Java.workspaceToCode(Code.workspace));
+  java_app.run(Blockly.Java.workspaceToCode(Code.workspace));
 };
 
 /**

@@ -24,6 +24,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -71,7 +72,7 @@ public class Mod_scratchforge {
 			field.setAccessible(true);
 			SetMultimap<String,ResourceLocation> map = (SetMultimap<String,ResourceLocation>)field.get(client);
 			for(ResourceLocation s: map.values()) {
-				failedTextures.add(s.getResourcePath().replace("textures/blocks/", "").replace(".png", ""));
+				failedTextures.add(s.getResourcePath().replace("textures/blocks/", "").replace(".png", "").replace("_", " "));
 			}
 		}
 		catch(Exception e) {
@@ -79,8 +80,8 @@ public class Mod_scratchforge {
 		}
 
 		if(failedTextures.size() > 0) {
-			String failed = ModHelpers.joinStrings(new ArrayList<String>(failedTextures), ", ", 0);
-			ModHelpers.sendChatMessage(event.player, "§6Hey! It seems like you do not have textures for §b" + failed + "§6." );
+			String failed = ModHelpers.joinStrings(new ArrayList<String>(failedTextures), ", " + EnumChatFormatting.AQUA, 0);
+			ModHelpers.sendChatMessage(event.player, EnumChatFormatting.GOLD + "Hey! It seems like you do not have textures for "+ EnumChatFormatting.AQUA + failed + EnumChatFormatting.GOLD + "." );
 		}
 	}
 }
