@@ -28,8 +28,8 @@ button {
   color: #000;
 }
 button.primary {
-  border: 1px solid #dd4b39;
-  background-color: #dd4b39;
+  border: 1px solid #5add39;
+  background-color: #5add39;
   color: #fff;
 }
 button.primary>img {

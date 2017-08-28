@@ -93,9 +93,9 @@ import java.util.*;
 import io.netty.buffer.*;
 import io.netty.channel.*;
 
-@Mod(modid = Mod_Template.MOD_ID, name=Mod_Template.MOD_NAME, version="1.0")
-public class Mod_Template {
-	public static final String MOD_NAME = "Mod Template";
+@Mod(modid = Mod_time.MOD_ID, name=Mod_time.MOD_NAME, version="1.0")
+public class Mod_time {
+	public static final String MOD_NAME = "time";
 	public static final String MOD_ID = "sf_" + MOD_NAME;
 	public static final String BLOCK_ID = MOD_ID + ":";
 
@@ -114,13 +114,31 @@ public class Mod_Template {
 		FMLCommonHandler.instance().bus().register(this);
 	}
 
-	/*Variables*/
+	static Mcblock_Night mcblock_Night;
+
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ModHelpers.addTranslation(CREATIVE_TAB.getTranslatedTabLabel(), MOD_NAME);
-		/*Constructor calls*/
+		mcblock_Night = new Mcblock_Night();
+
 	}
 
-	/*Classes*/
+	
+
+
+
+
+
+    public class Mcblock_Night extends BlockBase {
+        public Mcblock_Night() {
+            super(BLOCK_ID, CREATIVE_TAB, "Night", Material.rock);
+        }
+
+        @Override
+        public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+                world.setWorldTime((long)18000);
+        }
+    }
+
 }

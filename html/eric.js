@@ -66,7 +66,10 @@ Blockly.Blocks['mcblock'] = {
     {
       "type": "input_statement",
       "name": "Options",
-      "check": "mcblockoptions"
+      "check": [
+        "mcblockoptions",
+        "mcaction"
+      ]
     }
   ],
   "inputsInline": false,
@@ -131,8 +134,14 @@ Blockly.Blocks['mcblockoptions_quantity'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": null,
-  "nextStatement": null,
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -142,7 +151,6 @@ Blockly.Blocks['mcblockoptions_quantity'] = {
 
 Blockly.Java['mcblockoptions_quantity'] = function(block) {
   var value_amount = Blockly.Java.valueToCode(block, 'AMOUNT', Blockly.Java.ORDER_ATOMIC);
-  // TODO: Assemble Java into code variable.
   var code = 
   '    @Override\n' + 
   '    public int quantityDropped(Random r){\n' +
@@ -166,13 +174,31 @@ Blockly.Blocks['mcblockoptions_lightopacity'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
+};
+
+Blockly.Java['mcblockoptions_lightopacity'] = function(block) {
+  var value_light_opacity = Blockly.Java.valueToCode(block, 'LIGHT_OPACITY', Blockly.Java.ORDER_ATOMIC);
+  
+  var code = 
+  '    @Override\n' +
+  '    public int getLightOpacity() {\n' +
+  '        return Math.min(15, Math.max(0,(int)' + value_light_opacity + '));\n' +
+  '    }\n';
+
+  return code;
 };
 
 
@@ -190,14 +216,32 @@ Blockly.Blocks['mcblockoptions_lightvalue'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 }; 
+
+Blockly.Java['mcblockoptions_lightvalue'] = function(block) {
+  var value_light_value  = Blockly.Java.valueToCode(block, 'LIGHT_VALUE', Blockly.Java.ORDER_ATOMIC);
+  
+  var code = 
+  '    @Override\n' +
+  '    public int getLightValue() {\n' +
+  '        return Math.min(15, Math.max(0,(int)' + value_light_value  + '));\n' +
+  '    }\n';
+
+  return code;
+};
 
 
 Blockly.Blocks['mcblockoptions_click_right'] = {
@@ -212,17 +256,35 @@ Blockly.Blocks['mcblockoptions_click_right'] = {
     },
     {
       "type": "input_statement",
-      "name": "code"
+      "name": "CODE"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 }; 
+
+Blockly.Java['mcblockoptions_click_right'] = function(block) {
+  var statements_code = Blockly.Java.statementToCode(block, 'CODE');
+  
+  var code = 
+  '    @Override\n' +
+  '    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hx, float hy, float hz) {\n' +
+  '        ' + statements_code + '\n' +
+  '    }\n';
+  return code;
+};
+
 
 Blockly.Blocks['mcblockoptions_click_left'] = {
   
@@ -239,14 +301,31 @@ Blockly.Blocks['mcblockoptions_click_left'] = {
       "name": "CODE"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 }; 
+
+Blockly.Java['mcblockoptions_click_left'] = function(block) {
+  var statements_code = Blockly.Java.statementToCode(block, 'CODE');
+  
+  var code = 
+  '    @Override\n' +
+  '    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {\n' +
+  '        ' + statements_code + '\n' +
+  '    }\n';
+  return code;
+};
 
 
 Blockly.Blocks['mcblockoptions_blockplaced'] = {
@@ -264,8 +343,14 @@ Blockly.Blocks['mcblockoptions_blockplaced'] = {
       "name": "CODE"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -273,7 +358,16 @@ Blockly.Blocks['mcblockoptions_blockplaced'] = {
   }
 }; 
 
-
+Blockly.Java['mcblockoptions_blockplaced'] = function(block) {
+  var statements_code = Blockly.Java.statementToCode(block, 'CODE');
+  
+  var code = 
+  '    @Override\n' +
+  '    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {\n' +
+  '        ' + statements_code + '\n' +
+  '    }\n';
+  return code;
+};
 
 Blockly.Blocks['mcblockoptions_block_broken_player'] = {
   
@@ -290,14 +384,31 @@ Blockly.Blocks['mcblockoptions_block_broken_player'] = {
       "name": "CODE"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 }; 
+
+Blockly.Java['mcblockoptions_block_broken_player'] = function(block) {
+  var statements_code = Blockly.Java.statementToCode(block, 'CODE');
+  
+  var code = 
+  '    @Override\n' +
+  '    public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {\n' +
+  '        ' + statements_code + '\n' +
+  '    }\n';
+  return code;
+};
 
 
 Blockly.Blocks['mcblockoptions_block_broken_explosion'] = {
@@ -312,17 +423,34 @@ Blockly.Blocks['mcblockoptions_block_broken_explosion'] = {
     },
     {
       "type": "input_statement",
-      "name": "NAME"
+      "name": "CODE"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 }; 
+
+Blockly.Java['mcblockoptions_block_broken_explosion'] = function(block) {
+  var statements_code = Blockly.Java.statementToCode(block, 'CODE');
+  
+  var code = 
+  '    @Override\n' +
+  '    public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {\n' +
+  '        ' + statements_code + '\n' +
+  '    }\n';
+  return code;
+};
 
 
 Blockly.Blocks['mcblockoptions_walkthrough'] = {
@@ -340,13 +468,38 @@ Blockly.Blocks['mcblockoptions_walkthrough'] = {
       "name": "CODE"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
+};
+
+Blockly.Java['mcblockoptions_walkthrough'] = function(block) {
+  var statements_code = Blockly.Java.statementToCode(block, 'CODE');
+  
+  var code = 
+  '    @Override\n' +
+  '    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {\n' +
+  '        ' + statements_code + '\n' +
+  '    }\n' +
+  '\n' +
+  '    @Override\n' +
+  '    public AxisAlignedBB getCollisionBoundingBoxFromPool(){return null;}\n' +
+  '\n' +
+  '    @Override\n' +
+  '    public boolean renderAsNormalBlock(){return false;}\n'
+
+  ;
+  return code;
 }; 
 
 
@@ -356,14 +509,28 @@ Blockly.Blocks['mcblockoptions_transparent'] = {
     this.jsonInit({
       "type": "mcblockoptions",
   "message0": "Render Block Like Glass",
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 }; 
+
+Blockly.Java['mcblockoptions_transparent'] = function(block) {
+  var code = 
+  '    @Override\n' +
+  '    public boolean isOpaqueCube(){return false;}\n';
+  return code;
+};
+
 
 
 Blockly.Blocks['mcblockoptions_experience'] = {
@@ -379,11 +546,128 @@ Blockly.Blocks['mcblockoptions_experience'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": "mcblockoptions",
-  "nextStatement": "mcblockoptions",
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 }; 
+
+Blockly.Java['mcblockoptions_experience'] = function(block) {
+  var value_light_value  = Blockly.Java.valueToCode(block, 'AMOUNT', Blockly.Java.ORDER_ATOMIC);
+  
+  var code = 
+  '    @Override\n' +
+  '    public int getExpDrop() {\n' +
+  '        return Math.max(0,(int)' + value_light_value  + ');\n' +
+  '    }\n';
+
+  return code;
+};
+
+
+Blockly.Blocks['mcaction_time_selector'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcaction",
+  "message0": "Set time to %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "time",
+      "options": [
+        [
+          "Sunrise",
+          "0"
+        ],
+        [
+          "Day",
+          "1000"
+        ],
+        [
+          "Afternoon",
+          "6000"
+        ],
+        [
+          "Sunset",
+          "12000"
+        ],
+        [
+          "Night",
+          "13000"
+        ],
+        [
+          "Midnight",
+          "18000"
+        ]
+      ]
+    }
+  ],
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "colour": 120,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+};
+
+Blockly.Java['mcaction_time_raw'] = function(block) {
+  var dropdown_time = block.getFieldValue('time');
+  
+  var code = 'world.setWorldTime(Math.max(0, (long)' + dropdown_time + '));';
+
+  return code;
+};
+
+
+Blockly.Blocks['mcaction_time_raw'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcaction",
+  "message0": "Set time to %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "time",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "nextStatement": [
+    "mcaction",
+    "mcblockoptions"
+  ],
+  "colour": 120,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+};
+
+Blockly.Java['mcaction_time_raw'] = function(block) {
+  var value_time = Blockly.Java.valueToCode(block, 'time', Blockly.Java.ORDER_ATOMIC);
+  
+  var code = 'world.setWorldTime((long)' + value_time + ');';
+
+  return code;
+};
