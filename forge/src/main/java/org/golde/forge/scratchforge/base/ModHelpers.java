@@ -6,9 +6,12 @@ import java.util.List;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
 
 public class ModHelpers {
 
@@ -42,10 +45,6 @@ public class ModHelpers {
 		return translationList.getOrDefault(old, "Failed to find translation!");
 	}
 	
-	public static void log(String msg) {
-		System.out.println("[ScratchForge - Debug] " + msg);
-	}
-	
 	public static void sendChatMessage(EntityPlayer player, String msg) {
 		player.addChatMessage(new ChatComponentText(msg));
 	}
@@ -67,4 +66,15 @@ public class ModHelpers {
 		return sb.toString();
 	}
 	
+	
+	public static void spawnEntityInWorld(World world, int x, int y, int z, String entity) {
+		if(world.isRemote) {return;}
+		Entity theEntity = EntityList.createEntityByName(entity, world);
+		if(theEntity == null) {
+			PLog.error("Entity '" + entity + "' does not exist!");
+			return;
+		}
+		theEntity.setPosition(x + 0.5f, y + 1, z + 0.5f);
+        world.spawnEntityInWorld(theEntity);
+	}
 }

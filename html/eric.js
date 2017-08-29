@@ -66,10 +66,7 @@ Blockly.Blocks['mcblock'] = {
     {
       "type": "input_statement",
       "name": "Options",
-      "check": [
-        "mcblockoptions",
-        "mcaction"
-      ]
+      "check": "mcblockoptions"
     }
   ],
   "inputsInline": false,
@@ -119,8 +116,6 @@ Blockly.Java['mcblock'] = function(block) {
   return code;
 };
 
-
-
 Blockly.Blocks['mcblockoptions_quantity'] = {
   
   init: function() {
@@ -134,14 +129,8 @@ Blockly.Blocks['mcblockoptions_quantity'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -174,14 +163,8 @@ Blockly.Blocks['mcblockoptions_lightopacity'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -216,14 +199,8 @@ Blockly.Blocks['mcblockoptions_lightvalue'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -248,7 +225,7 @@ Blockly.Blocks['mcblockoptions_click_right'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcblockoptions",
+      "type": "mcblockoptions_click_right",
   "message0": "On Right Click %1 %2",
   "args0": [
     {
@@ -256,17 +233,12 @@ Blockly.Blocks['mcblockoptions_click_right'] = {
     },
     {
       "type": "input_statement",
-      "name": "CODE"
+      "name": "CODE",
+      "check": "action"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -281,6 +253,7 @@ Blockly.Java['mcblockoptions_click_right'] = function(block) {
   '    @Override\n' +
   '    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hx, float hy, float hz) {\n' +
   '        ' + statements_code + '\n' +
+  '        return true;\n' +
   '    }\n';
   return code;
 };
@@ -290,7 +263,7 @@ Blockly.Blocks['mcblockoptions_click_left'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcblockoptions",
+      "type": "mcblockoptions_click_left",
   "message0": "On Left Click %1 %2",
   "args0": [
     {
@@ -298,17 +271,12 @@ Blockly.Blocks['mcblockoptions_click_left'] = {
     },
     {
       "type": "input_statement",
-      "name": "CODE"
+      "name": "CODE",
+      "check": "action"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -332,7 +300,7 @@ Blockly.Blocks['mcblockoptions_blockplaced'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcblockoptions",
+      "type": "mcblockoptions_blockplaced",
   "message0": "On Block Placed %1 %2",
   "args0": [
     {
@@ -340,17 +308,12 @@ Blockly.Blocks['mcblockoptions_blockplaced'] = {
     },
     {
       "type": "input_statement",
-      "name": "CODE"
+      "name": "CODE",
+      "check": "action"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -369,11 +332,13 @@ Blockly.Java['mcblockoptions_blockplaced'] = function(block) {
   return code;
 };
 
+
+
 Blockly.Blocks['mcblockoptions_block_broken_player'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcblockoptions",
+      "type": "mcblockoptions_block_broken_player",
   "message0": "On Block Mined %1 %2",
   "args0": [
     {
@@ -381,17 +346,12 @@ Blockly.Blocks['mcblockoptions_block_broken_player'] = {
     },
     {
       "type": "input_statement",
-      "name": "CODE"
+      "name": "CODE",
+      "check": "action"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -411,11 +371,12 @@ Blockly.Java['mcblockoptions_block_broken_player'] = function(block) {
 };
 
 
+
 Blockly.Blocks['mcblockoptions_block_broken_explosion'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcblockoptions",
+      "type": "mcblockoptions_block_broken_explosion",
   "message0": "On Block Destroyed By Explosion %1 %2",
   "args0": [
     {
@@ -423,17 +384,12 @@ Blockly.Blocks['mcblockoptions_block_broken_explosion'] = {
     },
     {
       "type": "input_statement",
-      "name": "CODE"
+      "name": "NAME",
+      "check": "action"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -453,6 +409,7 @@ Blockly.Java['mcblockoptions_block_broken_explosion'] = function(block) {
 };
 
 
+
 Blockly.Blocks['mcblockoptions_walkthrough'] = {
   
   init: function() {
@@ -468,14 +425,8 @@ Blockly.Blocks['mcblockoptions_walkthrough'] = {
       "name": "CODE"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -509,14 +460,8 @@ Blockly.Blocks['mcblockoptions_transparent'] = {
     this.jsonInit({
       "type": "mcblockoptions",
   "message0": "Render Block Like Glass",
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -546,14 +491,8 @@ Blockly.Blocks['mcblockoptions_experience'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
+  "previousStatement": "mcblockoptions",
+  "nextStatement": "mcblockoptions",
   "colour": 330,
   "tooltip": "",
   "helpUrl": ""
@@ -578,7 +517,7 @@ Blockly.Blocks['mcaction_time_selector'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcaction",
+      "type": "mcaction_time_selector",
   "message0": "Set time to %1",
   "args0": [
     {
@@ -612,22 +551,16 @@ Blockly.Blocks['mcaction_time_selector'] = {
       ]
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "colour": 120,
+  "previousStatement": "action",
+  "nextStatement": "action",
+  "colour": 140,
   "tooltip": "",
   "helpUrl": ""
     });
   }
 };
 
-Blockly.Java['mcaction_time_raw'] = function(block) {
+Blockly.Java['mcaction_time_selector'] = function(block) {
   var dropdown_time = block.getFieldValue('time');
   
   var code = 'world.setWorldTime(Math.max(0, (long)' + dropdown_time + '));';
@@ -640,7 +573,7 @@ Blockly.Blocks['mcaction_time_raw'] = {
   
   init: function() {
     this.jsonInit({
-      "type": "mcaction",
+      "type": "mcaction_time_raw",
   "message0": "Set time to %1",
   "args0": [
     {
@@ -649,15 +582,9 @@ Blockly.Blocks['mcaction_time_raw'] = {
       "check": "Number"
     }
   ],
-  "previousStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "nextStatement": [
-    "mcaction",
-    "mcblockoptions"
-  ],
-  "colour": 120,
+  "previousStatement": "action",
+  "nextStatement": "action",
+  "colour": 140,
   "tooltip": "",
   "helpUrl": ""
     });
@@ -667,7 +594,200 @@ Blockly.Blocks['mcaction_time_raw'] = {
 Blockly.Java['mcaction_time_raw'] = function(block) {
   var value_time = Blockly.Java.valueToCode(block, 'time', Blockly.Java.ORDER_ATOMIC);
   
-  var code = 'world.setWorldTime((long)' + value_time + ');';
+  var code = 'world.setWorldTime(Math.max(0, (long)' + value_time + '));';
 
+  return code;
+};
+
+
+
+Blockly.Blocks['mcaction_spawn_mob'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcaction_spawn_mob",
+  "message0": "Spawn Mob %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "MOB",
+      "options": [
+        [
+          "Creeper",
+          "Creeper"
+        ],
+        [
+          "Skeleton",
+          "Skeleton"
+        ],
+        [
+          "Spider",
+          "Spider"
+        ],
+        [
+          "Giant",
+          "Giant"
+        ],
+        [
+          "Zombie",
+          "Zombie"
+        ],
+        [
+          "Slime",
+          "Slime"
+        ],
+        [
+          "Ghast",
+          "Ghast"
+        ],
+        [
+          "Zombie Pigman",
+          "PigZombie"
+        ],
+        [
+          "Enderman",
+          "Enderman"
+        ],
+        [
+          "Cave Spider",
+          "CaveSpider"
+        ],
+        [
+          "Silverfish",
+          "Silverfish"
+        ],
+        [
+          "Blaze",
+          "Blaze"
+        ],
+        [
+          " Lava Slime",
+          "LavaSlime"
+        ],
+        [
+          "Ender Dragon",
+          "EnderDragon"
+        ],
+        [
+          " Wither",
+          "WitherBoss"
+        ],
+        [
+          "Bat",
+          "Bat"
+        ],
+        [
+          "Pig",
+          "Pig"
+        ],
+        [
+          "Sheep",
+          "Sheep"
+        ],
+        [
+          "Cow",
+          "Cow"
+        ],
+        [
+          "Chicken",
+          "Chicken"
+        ],
+        [
+          "Squid",
+          "Squid"
+        ],
+        [
+          "Wolf",
+          "Wolf"
+        ],
+        [
+          "Mooshroom",
+          "Mooshroom"
+        ],
+        [
+          " Snow Man",
+          "SnowMan"
+        ],
+        [
+          "Cat",
+          "Ozelot"
+        ],
+        [
+          "Iron Golem",
+          "VillagerGolem"
+        ],
+        [
+          "Horse",
+          "EntityHorse"
+        ],
+        [
+          "Villager",
+          "Villager"
+        ]
+      ]
+    }
+  ],
+  "previousStatement": "action",
+  "nextStatement": "action",
+  "colour": 140,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+};
+
+Blockly.Java['mcaction_spawn_mob'] = function(block) {
+  var dropdown_mob = block.getFieldValue('MOB');
+
+  var code = 'ModHelpers.spawnEntityInWorld(world, x, y, z, "' + dropdown_mob + '");\n';
+  return code;
+};
+
+Blockly.Blocks['mcaction_explosion'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcaction_explosion",
+  "message0": "Explosion %1 Power %2 Smoke %3 %4 Fire %5",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "POWER",
+      "check": "Number"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "SMOKE",
+      "checked": true
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "FIRE",
+      "checked": false
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": "action",
+  "nextStatement": "action",
+  "colour": 140,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+};
+
+
+Blockly.Java['mcaction_explosion'] = function(block) {
+  var value_power = Blockly.Java.valueToCode(block, 'POWER', Blockly.Java.ORDER_ATOMIC);
+  var checkbox_smoke = block.getFieldValue('SMOKE') == 'TRUE';
+  var checkbox_fire = block.getFieldValue('FIRE') == 'TRUE';
+
+  var code = 'world.newExplosion((Entity)null, x, y, z, ' + (value_power + 1) + ', ' + checkbox_fire + ', ' + checkbox_smoke + ');\n';
   return code;
 };

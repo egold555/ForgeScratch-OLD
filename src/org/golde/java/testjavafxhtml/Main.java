@@ -50,6 +50,10 @@ public class Main implements ActionListener{
 
 	//File for JSObject window to communicate functions to
 	public JSFunctions jsFunctions; 
+	
+	//Config manager. 
+	//Makes a properties file and simple saving and loading settings
+	public Config config = new Config();
 
 	//Forge directory
 	public File forge_folder = new File("forge");
@@ -100,7 +104,6 @@ public class Main implements ActionListener{
 
 	//Start creation of everything
 	void initAndShowGUI() {
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final JFXPanel fxPanel = new JFXPanel(){
 
