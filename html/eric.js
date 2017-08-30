@@ -791,3 +791,149 @@ Blockly.Java['mcaction_explosion'] = function(block) {
   var code = 'world.newExplosion((Entity)null, x, y, z, ' + (value_power + 1) + ', ' + checkbox_fire + ', ' + checkbox_smoke + ');\n';
   return code;
 };
+
+Blockly.Blocks['mcaction_potion'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcaction_potion",
+  "message0": "Add Potion Effect To Player %1 Potion:  %2 %3 Seconds %4 Amplifier %5 Make Particles Invisible %6",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "POTION",
+      "options": [
+        [
+          "Speed",
+          "1"
+        ],
+        [
+          "Slowness",
+          "2"
+        ],
+        [
+          "Haste",
+          "3"
+        ],
+        [
+          "Mining Fatigue",
+          "4"
+        ],
+        [
+          "Strength",
+          "5"
+        ],
+        [
+          "Instant Health",
+          "6"
+        ],
+        [
+          "Instant Damage",
+          "7"
+        ],
+        [
+          "Jump Boost",
+          "8"
+        ],
+        [
+          "Nausea",
+          "9"
+        ],
+        [
+          "Regeneration",
+          "10"
+        ],
+        [
+          "Resistance",
+          "11"
+        ],
+        [
+          "Fire Resistance",
+          "12"
+        ],
+        [
+          "Water Breathing",
+          "13"
+        ],
+        [
+          "Invisibility",
+          "14"
+        ],
+        [
+          "Blindness",
+          "15"
+        ],
+        [
+          "Night Vision",
+          "16"
+        ],
+        [
+          "Hunger",
+          "17"
+        ],
+        [
+          "Weakness",
+          "18"
+        ],
+        [
+          "Poison",
+          "19"
+        ],
+        [
+          "Wither",
+          "20"
+        ],
+        [
+          "Health Boost",
+          "21"
+        ],
+        [
+          "Absorption",
+          "22"
+        ],
+        [
+          "Saturation",
+          "23"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "TIME",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "AMP",
+      "check": "Number"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "INVIS",
+      "checked": true
+    }
+  ],
+  "previousStatement": "action",
+  "nextStatement": "action",
+  "colour": 120,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+};
+
+Blockly.Java['mcaction_potion'] = function(block) {
+  var dropdown_potion = block.getFieldValue('POTION');
+  var value_time = Blockly.Java.valueToCode(block, 'TIME', Blockly.Java.ORDER_ATOMIC);
+  var value_amp = Blockly.Java.valueToCode(block, 'AMP', Blockly.Java.ORDER_ATOMIC);
+  var checkbox_invis = block.getFieldValue('INVIS') == 'TRUE';
+
+  var code = 'ModHelpers.addPotionToPlayer(player, ' + dropdown_potion + ', ' + value_time +', ' + value_amp +', ' + checkbox_invis +');\n';
+  return code;
+};
