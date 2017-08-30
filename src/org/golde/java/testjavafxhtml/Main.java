@@ -29,6 +29,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.golde.java.testjavafxhtml.helpers.JavaHelper;
+import org.golde.java.testjavafxhtml.windows.WindowProgramOptions;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -54,6 +55,8 @@ public class Main implements ActionListener{
 	//Config manager. 
 	//Makes a properties file and simple saving and loading settings
 	public Config config = new Config();
+	
+	WindowProgramOptions windowProgramOptions = new WindowProgramOptions(config);
 
 	//Forge directory
 	public File forge_folder = new File("forge");
@@ -65,22 +68,22 @@ public class Main implements ActionListener{
 	private JMenuBar menuBar = new JMenuBar(); 
 
 	//Every thing to put under the "File" button in the menu bar
-	private JMenuItem file_newItem = new JMenuItem("New");
-	private JMenuItem file_openItem = new JMenuItem("Open");
-	private JMenuItem file_saveItem = new JMenuItem("Save");
-	private JMenuItem file_saveAsItem = new JMenuItem("Save As");
-	private JMenuItem file_exitItem = new JMenuItem("Exit");
+	private JMenuItem mFileNew = new JMenuItem("New");
+	private JMenuItem mFileOpen = new JMenuItem("Open");
+	private JMenuItem mFileSaveItem = new JMenuItem("Save");
+	private JMenuItem mFileSaveAs = new JMenuItem("Save As");
+	private JMenuItem mFileExit = new JMenuItem("Exit");
 
-	//Every thing to put under the "Mod Options" button in the menu bar
-	private JMenuItem modOptions_textures = new JMenuItem("Textures");
-	private JMenuItem modOptions_enabledMods = new JMenuItem("Enabled Mods");
-	private JMenuItem modOptions_exportMod = new JMenuItem("Export Mod");
-
-	//Every thing to put under the "Program Options" button in the menu bar
-	private JMenuItem programOptions_programArgs = new JMenuItem("Java Arguments");
+	//Every thing to put under the "Options - Program" button in the menu bar
+	private JMenuItem mOptionsProgram = new JMenuItem("Program Options");
+	
+	//Every thing to put under the "Options - Mod" button in the menu bar
+	private JMenuItem mOptionsModTextures = new JMenuItem("Textures");
+	private JMenuItem mOptionsModEnabled = new JMenuItem("Enabled Mods");
+	private JMenuItem mOptionsModExport = new JMenuItem("Export Mod");
 
 	//Every thing to put under the "Help" button in the menu bar
-	private JMenuItem help_about = new JMenuItem("About");
+	private JMenuItem mHelpAbout = new JMenuItem("About");
 
 	//File name for wither opening or closing. Set by "Open" or "Save As"
 	private String filename = null;  
@@ -122,42 +125,45 @@ public class Main implements ActionListener{
 
 		//Make the menu button "File" and add elements to it
 		JMenu fileMenu = new JMenu("File");
-		fileMenu.add(file_newItem);
-		fileMenu.add(file_openItem);
-		fileMenu.add(file_saveItem);
-		fileMenu.add(file_saveAsItem);
-		fileMenu.add(file_exitItem);
-		file_newItem.addActionListener(this);
-		file_openItem.addActionListener(this);
-		file_saveItem.addActionListener(this);
-		file_saveAsItem.addActionListener(this);
-		file_exitItem.addActionListener(this);
+		fileMenu.add(mFileNew);
+		fileMenu.add(mFileOpen);
+		fileMenu.add(mFileSaveItem);
+		fileMenu.add(mFileSaveAs);
+		fileMenu.add(mFileExit);
+		mFileNew.addActionListener(this);
+		mFileOpen.addActionListener(this);
+		mFileSaveItem.addActionListener(this);
+		mFileSaveAs.addActionListener(this);
+		mFileExit.addActionListener(this);
 		menuBar.add(fileMenu);
 
+		JMenu mOptionsMenu = new JMenu("Options");
+		
 		//Make the menu button "Mod Options" and add elements to it
-		JMenu modOptionsMenu = new JMenu("Mod Options");
-		modOptionsMenu.add(modOptions_textures);
-		modOptionsMenu.add(modOptions_enabledMods);
-		modOptionsMenu.add(modOptions_exportMod);
-		modOptions_textures.addActionListener(this);
-		modOptions_textures.setEnabled(false);
-		modOptions_enabledMods.addActionListener(this);
-		modOptions_exportMod.addActionListener(this);
-		modOptions_exportMod.setEnabled(false);
-		menuBar.add(modOptionsMenu);
+		JMenu mOptionsMod = new JMenu("Mod Options");
+		mOptionsMod.add(mOptionsModTextures);
+		mOptionsMod.add(mOptionsModEnabled);
+		mOptionsMod.add(mOptionsModExport);
+		mOptionsModTextures.addActionListener(this);
+		mOptionsModTextures.setEnabled(false);
+		mOptionsModEnabled.addActionListener(this);
+		mOptionsModExport.addActionListener(this);
+		mOptionsModExport.setEnabled(false);
+		mOptionsMenu.add(mOptionsMod);
 
 		//Make the menu button "Program Options" and add elements to it
-		JMenu programOptionsMenu = new JMenu("Program Options");
-		programOptionsMenu.add(programOptions_programArgs);
-		programOptions_programArgs.addActionListener(this);
-		programOptions_programArgs.setEnabled(false);
-		menuBar.add(programOptionsMenu);
+		mOptionsMenu.add(mOptionsProgram);
+		mOptionsProgram.addActionListener(this);
+		mOptionsProgram.setEnabled(true);
+		
+		//Add Options menu to menu bar
+		menuBar.add(mOptionsMenu);
 
 		//Make the menu button "Help" and add elements to it
 		JMenu helpMenu = new JMenu("Help");
-		helpMenu.add(help_about);
-		help_about.addActionListener(this);
-		help_about.setEnabled(false);
+		helpMenu.add(mHelpAbout);
+		mHelpAbout.addActionListener(this);
+		mHelpAbout.setEnabled(false);
 		menuBar.add(helpMenu);
 
 		frame.setJMenuBar(menuBar);
@@ -205,26 +211,29 @@ public class Main implements ActionListener{
 			public void run() {
 				Object source = e.getSource();
 				//File
-				if (source == file_newItem) {
+				if (source == mFileNew) {
 					//new mod
 					createMod(false);
 				}
-				else if (source == file_openItem) {
+				else if (source == mFileOpen) {
 					loadFile(false);
 				}
-				else if (source == file_saveItem) {
+				else if (source == mFileSaveItem) {
 					saveFile(filename);
 				}
-				else if (source == file_saveAsItem) {
+				else if (source == mFileSaveAs) {
 					saveFile(null);
 				}
-				else if (source == file_exitItem) {
+				else if (source == mFileExit) {
 					System.exit(0);
 				}
 				
 				//Mod Options
-				else if(source == modOptions_enabledMods) {
+				else if(source == mOptionsModEnabled) {
 					jsFunctions.showEnabledMods(frame);
+				}
+				else if(source == mOptionsProgram) {
+					windowProgramOptions.showSettingsMenu();
 				}
 				
 

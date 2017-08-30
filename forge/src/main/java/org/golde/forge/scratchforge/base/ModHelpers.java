@@ -9,7 +9,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
@@ -25,6 +27,10 @@ public class ModHelpers {
 		addTranslation(from, to);
 	}
 	
+	public static void addTranslation(Item item, String to) {
+		addTranslation(item.getUnlocalizedName() + ".name", to);
+	}
+	
 	public static void addTranslation(CreativeTabs creativeTab, String to) {
 		addTranslation(creativeTab.getTranslatedTabLabel(), to);
 	}
@@ -38,9 +44,6 @@ public class ModHelpers {
 		
 		if(!old.endsWith(".name")) {
 			old+=".name";
-		}
-		if(!old.startsWith("tile.")) {
-			old = "tile." + old;
 		}
 		return translationList.getOrDefault(old, "Failed to find translation!");
 	}
@@ -77,4 +80,10 @@ public class ModHelpers {
 		theEntity.setPosition(x + 0.5f, y + 1, z + 0.5f);
         world.spawnEntityInWorld(theEntity);
 	}
+	
+	public static void addPotionToPlayer(EntityPlayer player, int potion, int seconds, int amp, boolean invis) {
+		player.addPotionEffect(new PotionEffect(potion, seconds * 20, amp, invis));
+	}
+
+	
 }

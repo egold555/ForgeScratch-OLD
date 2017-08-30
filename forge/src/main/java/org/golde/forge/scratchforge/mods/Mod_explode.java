@@ -121,7 +121,7 @@ public class Mod_explode {
 	public void preInit(FMLPreInitializationEvent event) {
 		ModHelpers.addTranslation(CREATIVE_TAB.getTranslatedTabLabel(), MOD_NAME);
 		mcblock_boom = new Mcblock_boom();
-
+		new ItemBase(CREATIVE_TAB, BLOCK_ID, "Test Item", 1);
 	}
 
 	

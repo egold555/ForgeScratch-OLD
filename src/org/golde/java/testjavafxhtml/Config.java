@@ -27,7 +27,9 @@ public class Config {
 	}
 	
 	public enum ConfigProperty {
-		VERSION
+		MCRAM, 
+		CLIENT_MULTIPLAYER_ENABLED, 
+		CLIENT_MULTIPLAYER_LIMITED
 	}
 	
 	public void set(ConfigProperty setting, String to) {
