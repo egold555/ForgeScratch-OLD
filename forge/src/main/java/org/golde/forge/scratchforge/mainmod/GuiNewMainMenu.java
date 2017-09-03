@@ -460,7 +460,7 @@ public class GuiNewMainMenu extends GuiScreen implements GuiYesNoCallback{
 		String s1 = "Copyright Mojang AB. Do not distribute!";
 		this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
 		
-		String scratch = "§aScratchForge installed";
+		String scratch = EnumChatFormatting.LIGHT_PURPLE + "ScratchForge installed";
 		this.drawString(this.fontRendererObj, scratch, this.width - this.fontRendererObj.getStringWidth(scratch) - 2, this.height - 20, -1);
 
 		super.drawScreen(p_73863_1_, p_73863_2_, p_73863_3_);

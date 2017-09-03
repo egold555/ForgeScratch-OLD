@@ -1,4 +1,4 @@
-package org.golde.java.testjavafxhtml.windows;
+package org.golde.java.scratchforge.windows;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,12 +9,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import org.golde.java.testjavafxhtml.Config;
-import org.golde.java.testjavafxhtml.Config.ConfigProperty;
-import org.golde.java.testjavafxhtml.helpers.PLog;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
+
+import org.golde.java.scratchforge.Config;
+import org.golde.java.scratchforge.Config.ConfigProperty;
+import org.golde.java.scratchforge.helpers.PLog;
 
 public class WindowProgramOptions extends JFrame{
 	
@@ -133,7 +133,7 @@ public class WindowProgramOptions extends JFrame{
 		panel_1.setBounds(279, 219, 191, 144);
 		getContentPane().add(panel_1);*/
 		
-		
+		this.setResizable(false);
 		
 		addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override

@@ -1,11 +1,13 @@
-package org.golde.java.testjavafxhtml;
+package org.golde.java.scratchforge;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,8 +30,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.golde.java.testjavafxhtml.helpers.JavaHelper;
-import org.golde.java.testjavafxhtml.windows.WindowProgramOptions;
+import org.golde.java.scratchforge.helpers.ImageTool;
+import org.golde.java.scratchforge.helpers.JavaHelper;
+import org.golde.java.scratchforge.windows.WindowPaintSave;
+import org.golde.java.scratchforge.windows.WindowProgramOptions;
+
+import com.sun.javafx.iio.common.ImageTools;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -51,6 +57,8 @@ public class Main implements ActionListener{
 
 	//File for JSObject window to communicate functions to
 	public JSFunctions jsFunctions; 
+	
+	private WindowPaintSave windowPaintSave = new WindowPaintSave();
 	
 	//Config manager. 
 	//Makes a properties file and simple saving and loading settings
@@ -145,7 +153,7 @@ public class Main implements ActionListener{
 		mOptionsMod.add(mOptionsModEnabled);
 		mOptionsMod.add(mOptionsModExport);
 		mOptionsModTextures.addActionListener(this);
-		mOptionsModTextures.setEnabled(false);
+		mOptionsModTextures.setEnabled(true);
 		mOptionsModEnabled.addActionListener(this);
 		mOptionsModExport.addActionListener(this);
 		mOptionsModExport.setEnabled(false);
@@ -234,6 +242,12 @@ public class Main implements ActionListener{
 				}
 				else if(source == mOptionsProgram) {
 					windowProgramOptions.showSettingsMenu();
+				}
+				else if(source == mOptionsModTextures) {
+					int size = 16;
+					BufferedImage image = ImageTool.toBufferedImage(ImageTool.getEmptyImage(size, size));
+					//ImageTool.saveBufferedImage(image, name, "png", dir);
+					windowPaintSave.setVisible(true);
 				}
 				
 
@@ -367,23 +381,6 @@ public class Main implements ActionListener{
 			}
 			return;
 		}
-	}
-
-	
-
-	//Simple error dialog
-	public static void showQuickErrorDialog(IOException e) {
-		final JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Sans-Serif", Font.PLAIN, 10));
-		textArea.setEditable(false);
-		StringWriter writer = new StringWriter();
-		e.printStackTrace(new PrintWriter(writer));
-		textArea.setText(writer.toString());
-
-		JScrollPane scrollPane = new JScrollPane(textArea);		
-		scrollPane.setPreferredSize(new Dimension(350, 150));
-
-		JOptionPane.showMessageDialog(frame, scrollPane, "An Error Has Occurred", JOptionPane.ERROR_MESSAGE);
 	}
 
 }

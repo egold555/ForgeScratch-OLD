@@ -1,5 +1,6 @@
-package org.golde.java.testjavafxhtml.helpers;
+package org.golde.java.scratchforge.helpers;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,7 +44,12 @@ public class JavaHelper {
 	//List all files in folder. This works for nested files
 	public static List<File> listFilesForFolder(final File folder) {
 		files = new ArrayList<File>();
-		for (final File fileEntry : folder.listFiles()) {
+		File[] listOfFiles = folder.listFiles();
+		if(listOfFiles == null) {
+			PLog.error("Directory " + folder.getAbsolutePath() + "is missing!!! Returning a blank list so that we do not crash!");
+			return files;
+		}
+		for (final File fileEntry : listOfFiles) {
 			if (fileEntry.isDirectory()) {
 				listFilesForFolder(fileEntry);
 			} else {
@@ -60,5 +66,13 @@ public class JavaHelper {
 		if(s.equalsIgnoreCase(" ")) {return true;}
 
 		return false;
+	}
+	
+	public static void openFileWithDefaultProgram(File file) {
+		try {
+			Desktop.getDesktop().open(file);
+		} catch (Exception e) {
+			PLog.error(e, "Failed to open file!");
+		}
 	}
 }

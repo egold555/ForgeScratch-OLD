@@ -1,4 +1,4 @@
-package org.golde.java.testjavafxhtml;
+package org.golde.java.scratchforge;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import org.golde.java.testjavafxhtml.helpers.PLog;
+import org.golde.java.scratchforge.helpers.PLog;
 
 public class Config {
 
@@ -40,7 +40,7 @@ public class Config {
 			output.close();
 		}
 		catch(Exception e) {
-			PLog.error(e, "Failed to set " + setting.name() + " to " + to + "!");
+			PLog.errorPopup(e, "Failed to set " + setting.name() + " to " + to + "!");
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package org.golde.java.testjavafxhtml;
+package org.golde.java.scratchforge;
 
 import java.awt.Dimension;
 import java.io.File;
@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.golde.java.testjavafxhtml.helpers.JavaHelper;
-import org.golde.java.testjavafxhtml.helpers.PLog;
+import org.golde.java.scratchforge.helpers.JavaHelper;
+import org.golde.java.scratchforge.helpers.PLog;
 
 import netscape.javascript.JSObject;
 
