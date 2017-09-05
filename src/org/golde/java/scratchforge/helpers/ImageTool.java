@@ -273,36 +273,4 @@ public abstract class ImageTool {
         return toImage(bimg);
     }
     
-    /**
-     * Saves a Buffered image to a file
-     * @param image Image to save
-     * @param name Name of image
-     * @param extention Image extention (JPG, PNG, etc)
-     * @return File object
-     * @throws IOException 
-     */
-    public static File saveBufferedImage(BufferedImage image, String name, String extention) throws IOException {
-    	File outputfile = new File(name + "." + extention);
-    	return saveBufferedImageGeneric(image, name, extention, outputfile);
-    }
-    
-    /**
-     * Saves a Buffered image to a file
-     * @param image Image to save
-     * @param name Name of image
-     * @param extention Image extention (JPG, PNG, etc)
-     * @param dir File directory to save too
-     * @return File object
-     * @throws IOException 
-     */
-    public static File saveBufferedImage(BufferedImage image, String name, String extention, File dir) throws IOException {
-    	File outputfile = new File(dir, name + "." + extention);
-    	return saveBufferedImageGeneric(image, name, extention, outputfile);
-    }
-    
-    private static File saveBufferedImageGeneric(BufferedImage image, String name, String extention, File dir) throws IOException {
-    	ImageIO.write(image, extention, dir);
-    	return dir;
-    }
-    
 }

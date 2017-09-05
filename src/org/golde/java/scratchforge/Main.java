@@ -2,17 +2,10 @@ package org.golde.java.scratchforge;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
@@ -24,18 +17,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.golde.java.scratchforge.helpers.ImageTool;
 import org.golde.java.scratchforge.helpers.JavaHelper;
-import org.golde.java.scratchforge.windows.WindowPaintSave;
+import org.golde.java.scratchforge.windows.WindowEditTexture;
 import org.golde.java.scratchforge.windows.WindowProgramOptions;
-
-import com.sun.javafx.iio.common.ImageTools;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -57,8 +45,6 @@ public class Main implements ActionListener{
 
 	//File for JSObject window to communicate functions to
 	public JSFunctions jsFunctions; 
-	
-	private WindowPaintSave windowPaintSave = new WindowPaintSave();
 	
 	//Config manager. 
 	//Makes a properties file and simple saving and loading settings
@@ -106,7 +92,7 @@ public class Main implements ActionListener{
 	//Default mod name, gets overwritten on new project creation
 	public String MOD_NAME = "If you see this, something bad happened"; 
 
-
+	public ModManager modManager;
 
 	public static void main(String[] args) {
 		//Run things after everything, also non static :)
@@ -115,6 +101,9 @@ public class Main implements ActionListener{
 
 	//Start creation of everything
 	void initAndShowGUI() {
+		// This has to be called after "forge_folder" is initialized.
+		modManager = new ModManager(this);
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final JFXPanel fxPanel = new JFXPanel(){
 
@@ -244,10 +233,8 @@ public class Main implements ActionListener{
 					windowProgramOptions.showSettingsMenu();
 				}
 				else if(source == mOptionsModTextures) {
-					int size = 16;
-					BufferedImage image = ImageTool.toBufferedImage(ImageTool.getEmptyImage(size, size));
-					//ImageTool.saveBufferedImage(image, name, "png", dir);
-					windowPaintSave.setVisible(true);
+					
+					new WindowEditTexture(Main.this);
 				}
 				
 
@@ -281,7 +268,7 @@ public class Main implements ActionListener{
 
 			jsFunctions.load(XML);
 		}
-		catch (FileNotFoundException e) {
+		catch (Exception e) {
 			JOptionPane.showMessageDialog(frame, "File not found: " + name, "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -321,7 +308,7 @@ public class Main implements ActionListener{
 
 				JOptionPane.showMessageDialog(frame, "Saved to " + filename, "Save File", JOptionPane.PLAIN_MESSAGE);
 			}
-			catch (FileNotFoundException e) {
+			catch (Exception e) {
 				JOptionPane.showMessageDialog(frame, "Cannot write to file: " + name, "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}

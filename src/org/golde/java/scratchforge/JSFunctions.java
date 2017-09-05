@@ -77,6 +77,8 @@ public class JSFunctions {
 
 			// 4. Write string to a new file.
 			JavaHelper.writeFile(new File(forgeModsIn,"Mod_" + projectName + ".java"), modTemplate);
+			
+			main.modManager.scanDirectoriesForMods();
 
 		}
 		catch(Exception e) {
@@ -143,24 +145,14 @@ public class JSFunctions {
 
 	
 	public void showEnabledMods(JFrame frame) {
-		HashMap<String, Boolean> modStatus = new HashMap<String, Boolean>();
-		//update mod list
-		for(File mod: JavaHelper.listFilesForFolder(forgeModsIn)) {
-			if(mod.getName().toLowerCase().contains("scratchforge")) {continue;}
-			modStatus.put(mod.getName(), true);
-		}
-		for(File mod: JavaHelper.listFilesForFolder(forgeModsOut)) {
-			modStatus.put(mod.getName(), false);
-		}
-		
 		//Makes checkbox list
 		List<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 		JPanel listOfFiles = new JPanel();
 		listOfFiles.setLayout(new BoxLayout(listOfFiles, BoxLayout.Y_AXIS));
 
-		for(String mod: modStatus.keySet()) {
-			JCheckBox checkbox = new JCheckBox(mod);
-			checkbox.setSelected(modStatus.get(mod));
+		for(Mod mod: main.modManager.allMods()) {
+			JCheckBox checkbox = new JCheckBox(mod.getModName());
+			checkbox.setSelected(mod.isEnabled());
 			checkboxes.add(checkbox);
 			listOfFiles.add(checkbox);
 		}
@@ -173,13 +165,9 @@ public class JSFunctions {
 
 		if (result == JOptionPane.OK_OPTION) {
 			for(JCheckBox checkbox: checkboxes) {
-				if(checkbox.isSelected() && !modStatus.get(checkbox.getText())) {
-					//move to enabled
-					new File(forgeModsOut, checkbox.getText()).renameTo(new File(forgeModsIn, checkbox.getText()));
-				}
-				else if(!checkbox.isSelected() && modStatus.get(checkbox.getText())){
-					//move to disabled
-					new File(forgeModsIn, checkbox.getText()).renameTo(new File(forgeModsOut, checkbox.getText()));
+				Mod mod = main.modManager.getMod(checkbox.getText());
+				if (mod != null) {
+					mod.setEnabled(checkbox.isSelected());
 				}
 			}
 		}

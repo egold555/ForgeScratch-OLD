@@ -17,7 +17,7 @@ public class BlockBase extends Block{
 	
 	public BlockBase(String blockId, CreativeTabs creatibeTab, String rawName, Material material, SoundType sound) {
 		super(material);
-		String name = rawName.replace(" ", "_");
+		String name = ModHelpers.makeJavaId(rawName);
 		setBlockName(name);
 		setBlockTextureName(blockId + name);
 		this.setHardness(1.5f);
@@ -28,5 +28,7 @@ public class BlockBase extends Block{
         GameRegistry.registerBlock(this, this.getUnlocalizedName().substring(5));
         ModHelpers.addTranslation(this, rawName);
 	}
+	
+
 	
 }
