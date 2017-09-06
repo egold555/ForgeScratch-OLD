@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.golde.java.scratchforge.helpers.JavaHelper;
+import org.golde.java.scratchforge.mod.ModManager;
 import org.golde.java.scratchforge.windows.WindowEditTexture;
 import org.golde.java.scratchforge.windows.WindowProgramOptions;
 

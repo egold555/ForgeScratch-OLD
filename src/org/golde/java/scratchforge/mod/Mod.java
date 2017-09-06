@@ -1,4 +1,4 @@
-package org.golde.java.scratchforge;
+package org.golde.java.scratchforge.mod;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

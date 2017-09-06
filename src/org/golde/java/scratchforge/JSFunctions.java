@@ -3,7 +3,6 @@ package org.golde.java.scratchforge;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +16,7 @@ import javax.swing.JScrollPane;
 
 import org.golde.java.scratchforge.helpers.JavaHelper;
 import org.golde.java.scratchforge.helpers.PLog;
+import org.golde.java.scratchforge.mod.Mod;
 
 import netscape.javascript.JSObject;
 
@@ -31,7 +31,7 @@ public class JSFunctions {
 	private File forgeDir;
 	private File forgeScratch;
 	private File forgeModsIn;
-	private File forgeModsOut;
+	//private File forgeModsOut;
 	private JSObject javaApp;
 	String javaHome = System.getenv("JAVA_HOME");
 
@@ -41,7 +41,7 @@ public class JSFunctions {
 		this.forgeDir = main.forge_folder;
 		this.forgeScratch = new File(forgeDir, "forgescratch");
 		this.forgeModsIn = new File(forgeDir, "src\\main\\java\\org\\golde\\forge\\scratchforge\\mods");
-		this.forgeModsOut = new File(forgeScratch, "unusedMods");
+		//this.forgeModsOut = new File(forgeScratch, "unusedMods");
 	}
 
 	public String saveXML() {

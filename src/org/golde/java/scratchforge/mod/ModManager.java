@@ -1,9 +1,10 @@
-package org.golde.java.scratchforge;
+package org.golde.java.scratchforge.mod;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.golde.java.scratchforge.Main;
 import org.golde.java.scratchforge.helpers.JavaHelper;
 
 public class ModManager {

@@ -15,9 +15,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.golde.java.scratchforge.Main;
-import org.golde.java.scratchforge.Mod;
-import org.golde.java.scratchforge.Mod.Texture;
 import org.golde.java.scratchforge.helpers.JavaHelper;
+import org.golde.java.scratchforge.mod.Mod;
+import org.golde.java.scratchforge.mod.Mod.Texture;
 
 public class WindowEditTexture extends JFrame implements TreeSelectionListener{
 

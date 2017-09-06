@@ -1142,3 +1142,64 @@ Blockly.Java['mcaction_playsound'] = function(block) {
   var code = 'world.playSoundAtEntity(player, "' + dropdown_sound + '", 1, 1);\n';
   return code;
 };
+
+
+
+Blockly.Blocks['mcitem'] = {
+  
+  init: function() {
+    this.jsonInit({
+      "type": "mcitem",
+  "message0": "Item %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "item",
+      "options": [
+        ["Apple","apple"],
+        ["Arrow","arrow"],
+        ["Baked Potato","baked_potato"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"],
+        ["option","OPTIONNAME"]
+        
+      ]
+    }
+  ],
+  "output": null,
+  "colour": 20,
+  "tooltip": "",
+  "helpUrl": ""
+    });
+  }
+};
